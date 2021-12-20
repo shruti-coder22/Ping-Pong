@@ -13,16 +13,33 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/addons/p5.sound.min.js"></script>   
 
     </head>
-    <body background=background.jfif>
+    <body background=bg.jpg>
         <center>
-            <h2 class="btn btn-primary header">Ping Pong</h2>
+            <h2 class="btn btn-primary header">Ping Pong <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Instructions</button></h2>
             <hr><hr>
             <br>
             <button class="btn btn-success" onclick="startGame()">Start Game</button>
             <br><br>
+            <button class="btn btn-danger" onclick="reset()">Reset Game</button>
+            <br><br>
             <h4 class="btn btn-info" id="status"></h4>
             <br><br>
             <div id="canvas"></div>
+            
+            <h4 id="footer">Base Game:<a href="https://code.byjusfutureschool.com/s/my-projects/view/f33409df-fa85-459d-8dd2-771943f27ddc">byjusfutureschool</a>||Game Credits: Unkown</h4>
+            <div id="myModal" class="modal fade">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button class="close" data-dismiss="myModal">&times;</button>
+                    <h4>Instructions</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Move your nose up and down to move your paddle.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
         </center>
         <script src="main.js"></script>
     </body>
