@@ -23,7 +23,7 @@ function setup(){
   canvas.parent("canvas");
   video = createCapture(VIDEO);
 	video.size(800, 400);
-	video.parent('game_console');
+	video.parent('video_parent');
 
 	poseNet = ml5.poseNet('video', modelLoaded);
 	poseNet.on('pose', gotPoses);
@@ -33,11 +33,21 @@ function modelLoaded () {
 	console.log("Model Loaded");
 }
 
-
+function gotPoses (results) {
+	if(results.length > 0) {
+		console.log(results);
+		nose_x = results[0].pose.nose.x;
+		nose_y = results[0].pose.nose.y;
+	}
+}
 
 function draw(){
 
  background(0); 
+
+ fill("black");
+ stroke("black");
+ circ(nose_x-20, nose_y, 30);
 
  fill("black");
  stroke("black");
@@ -74,6 +84,7 @@ function draw(){
    
    //function move call which in very important
     move();
+
 }
 
 

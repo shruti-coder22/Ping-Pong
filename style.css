@@ -29,11 +29,6 @@ body {
     width: 90%;
 }
 
-.instruction-png {
-    display: inline-block;
-    width: 45%;
-}
-
 video {
     background: url('game_console.png');
     background-size: cover;
