@@ -1,5 +1,6 @@
-var paddle2 =10,paddle1=10;
+var start = "";
 
+var paddle2 =10,paddle1=10;
 var paddle1X = 10,paddle1Height = 110;
 var paddle2Y = 685,paddle2Height = 70;
 
@@ -16,6 +17,11 @@ var ball = {
     r:20,
     dx:3,
     dy:3
+}
+
+function preload() {
+  ball_touch = loadSound("ball_touch_paddel.wav");
+	missed = loadSound("missed.wav");
 }
 
 function setup(){
@@ -57,34 +63,35 @@ function draw(){
  stroke("black");
  rect(0,0,20,700);
  
-   //funtion paddleInCanvas call 
-   paddleInCanvas();
+ if (start =! "") {
+ //funtion paddleInCanvas call 
+ paddleInCanvas();
  
-   //left paddle
-   fill(250,0,0);
-    stroke(0,0,250);
-    strokeWeight(0.5);
-   paddle1Y = mouseY; 
-   rect(paddle1X,paddle1Y,paddle1,paddle1Height,100);
-   
-   
-    //pc computer paddle
-    fill("#FFA500");
-    stroke("#FFA500");
-   var paddle2y =ball.y-paddle2Height/2;  rect(paddle2Y,paddle2y,paddle2,paddle2Height,100);
-    
-    //function midline call
-    midline();
-    
-    //funtion drawScore call 
-   drawScore();
-   
-   //function models call  
-   models();
-   
-   //function move call which in very important
-    move();
-
+ //left paddle
+fill(250,0,0);
+stroke(0,0,250);
+strokeWeight(0.5);
+paddle1Y = nose_y; 
+rect(paddle1X,paddle1Y,paddle1,paddle1Height,100);
+ 
+ 
+  //pc computer paddle
+  fill("#FFA500");
+  stroke("#FFA500");
+ var paddle2y =ball.y-paddle2Height/2;  rect(paddle2Y,paddle2y,paddle2,paddle2Height,100);
+  
+  //function midline call
+  midline();
+  
+  //funtion drawScore call 
+ drawScore();
+ 
+ //function models call  
+ models();
+ 
+ //function move call which in very important
+  move();
+ }
 }
 
 
@@ -98,6 +105,9 @@ function reset(){
    
 }
 
+function startGame() {
+  start = "True";
+}
 
 //function midline draw a line in center
 function midline(){
@@ -132,19 +142,21 @@ function move(){
    ball.x = ball.x + ball.dx;
    ball.y = ball.y + ball.dy;
    if(ball.x+ball.r>width-ball.r/2){
-       ball.dx=-ball.dx-0.5;       
+       ball.dx=-ball.dx-0.5;
+       ball_touch.play();       
    }
   if (ball.x-2.5*ball.r/2< 0){
   if (ball.y >= paddle1Y&& ball.y <= paddle1Y + paddle1Height) {
-    ball.dx = -ball.dx+0.5; 
+    ball.dx = -ball.dx+0.5;
+    missed.play();
   }
   else{
     pcscore++;
     reset();
     navigator.vibrate(100);
   }
-}
-if(pcscore ==4){
+  }
+  if(pcscore ==4){
     fill("#FFA500");
     stroke(0)
     rect(0,0,width,height-1);
@@ -155,10 +167,10 @@ if(pcscore ==4){
     text("Reload The Page!",width/2,height/2+30)
     noLoop();
     pcscore = 0;
-}
-   if(ball.y+ball.r > height || ball.y-ball.r <0){
+  }
+  if(ball.y+ball.r > height || ball.y-ball.r <0){
        ball.dy =- ball.dy;
-   }   
+  }   
 }
 
 
